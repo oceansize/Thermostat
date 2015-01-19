@@ -18,44 +18,44 @@ describe("Thermostat", function() {
     });
   });
 
-  describe("changing temperature", function() {
-    it("temperature can be increased", function() {
+  describe("temperature", function() {
+    it("can be increased", function() {
       thermostat.increaseTemperature(degreesToChangeBy);
       expect(thermostat.temperature).toEqual(21);
     });
-    it("temperature can be decreased", function() {
+    it("can be decreased", function() {
       thermostat.decreaseTemperature(degreesToChangeBy);
       expect(thermostat.temperature).toEqual(19);
     });
-    it("temperature cannot go below minimum temperature", function() {
-      thermostat.temperature = 10
+    it("cannot go below minimum temperature", function() {
+      thermostat.temperature = 10;
       thermostat.decreaseTemperature(2000);
-      expect(thermostat.temperature).toEqual(10)
+      expect(thermostat.temperature).toEqual(10);
     });
-    it("temperature cannot go above maximum temperature", function() {
+    it("cannot go above maximum temperature", function() {
       thermostat.increaseTemperature(2000);
       expect(thermostat.temperature).toEqual(25);
     });
-    it("temperature can be reset", function() {
+    it("can be reset", function() {
       thermostat.resetTemperature();
       expect(thermostat.temperature).toEqual(defaultTemperature);
     });
   });
 
   describe("has a power-saving mode (PSM)", function() {
-    it("PSM is off by default", function() {
+    it("which is off by default", function() {
       expect(thermostat.powerSavingMode).toBe(true);
     });
-    it("PSM can be switched OFF", function() {
+    it("can be switched OFF", function() {
       thermostat.switchPowerSaveModeOFF();
       expect(thermostat.powerSavingMode).toBe(false);
     });
-    it("PSM can be switched from OFF to ON", function() {
+    it("can be switched from OFF to ON", function() {
       thermostat.switchPowerSaveModeOFF();
       thermostat.switchPowerSaveModeON();
       expect(thermostat.powerSavingMode).toBe(true);
     });
-    it("PSM decides maximum temperature", function() {
+    it("decides maximum temperature", function() {
       expect(thermostat.maximumTemperature).toEqual(25);
       thermostat.switchPowerSaveModeOFF();
       expect(thermostat.maximumTemperature).toEqual(32);
@@ -63,14 +63,14 @@ describe("Thermostat", function() {
   });
 
   describe("reflects energy usage with a rating", function() {
-    it("Less than 18 degrees is considered low usage", function() {
+    it("is considered low usage when less than 18 degrees", function() {
       thermostat.decreaseTemperature(5);
       expect(thermostat.energyRating()).toEqual("low")
     });
-    it("Less than 25 degrees is considered medium usage", function() {
+    it("is considered medium usage when less than 25 degrees ", function() {
       expect(thermostat.energyRating()).toEqual("medium")
     });
-    it("25 or above is considered high usage", function() {
+    it("is considered high usage when 25 or above", function() {
       thermostat.increaseTemperature(5);
       expect(thermostat.energyRating()).toEqual("high")
     });

@@ -43,7 +43,7 @@ describe("Thermostat", function() {
   });
 
   describe("has a power-saving mode (PSM)", function() {
-    it("which is off by default", function() {
+    it("which is on by default", function() {
       expect(thermostat.powerSavingMode).toBe(true);
     });
     it("can be switched OFF", function() {
@@ -55,6 +55,20 @@ describe("Thermostat", function() {
       thermostat.switchPowerSaveModeON();
       expect(thermostat.powerSavingMode).toBe(true);
     });
+
+    describe("when switched on", function() {
+      it("if temperature is set above maximum, reduce to limit", function() {
+        thermostat.switchPowerSaveModeOFF();
+        thermostat.increaseTemperature(2000);
+        thermostat.switchPowerSaveModeON();
+        expect(thermostat.temperature).toEqual(25);
+      });
+      it("if temperature is below limit, remains unchanged", function() {
+        thermostat.switchPowerSaveModeON();
+        expect(thermostat.temperature).toEqual(20);
+      });
+    });
+
     it("decides maximum temperature", function() {
       expect(thermostat.maximumTemperature).toEqual(25);
       thermostat.switchPowerSaveModeOFF();
@@ -63,16 +77,16 @@ describe("Thermostat", function() {
   });
 
   describe("reflects energy usage with a rating", function() {
-    it("is considered low usage when less than 18 degrees", function() {
+    it("less than 18 degrees is considered low usage", function() {
       thermostat.decreaseTemperature(5);
-      expect(thermostat.energyRating()).toEqual("low")
+      expect(thermostat.energyRating()).toEqual("low-usage")
     });
-    it("is considered medium usage when less than 25 degrees ", function() {
-      expect(thermostat.energyRating()).toEqual("medium")
+    it("less than 25 degrees is considered medium usage", function() {
+      expect(thermostat.energyRating()).toEqual("medium-usage")
     });
-    it("is considered high usage when 25 or above", function() {
+    it("25 or above is considered high usage", function() {
       thermostat.increaseTemperature(5);
-      expect(thermostat.energyRating()).toEqual("high")
+      expect(thermostat.energyRating()).toEqual("high-usage")
     });
   });
 });

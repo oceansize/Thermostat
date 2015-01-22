@@ -3,27 +3,35 @@
   <head>
     <title>Thermostat</title>
     <meta charset='utf8'>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/thermo-style.css">
   </head>
 
   <body>
-    <main class="wrapper">
-      <h2>
-        <span class='temperature'>??</span>
-      </h2>
-      <h3 class="degrees">degrees</h3>
-      <button class='increaseTemp'>+</button>
-      <button class='decreaseTemp'>-</button>
-      <button class='reset'>⟳</button>
-
-      <div class='psm_button'>
-        <input type="checkbox" value="1" id="psm_button_input">
-        <label for="psm_button_input"></label>
-      </div>
+    <main class="grid">
+      <section class="col-7-12">
+        <h1 id="temperature">??</h1>
+        <p>
+          <a href="#" class='increaseTemp button'>+</a>
+          <a href="#" class='decreaseTemp button'>-</a>
+          <a href="#" class='reset button'>reset</a>
+        </p>
+        <h2 id="power-saving-divider">
+          <span>power saving mode</span>
+        </h2>
+        <p>
+          <a href="#" class='switch PSM-on active'>on</a>
+        </p>
+        <p>
+          <a href="#" class='switch PSM-off'>off</a>
+        </p>
+      </section>
+      <section class="col-5-12">
+        <img src="img/degrees.svg"/>
+        <img src="img/thermometer.svg" class="thermometer"/>
+      </section>
     </main>
-
-      <script js='javascript/thermostat.js'></script>
-      <script js='http://code.jquery.com/jquery-2.1.1.min.js'></script>
-      <script js='javascript/interface.js'></script>
+    <script src='js/jquery.min.js'></script>
+    <script src='js/thermostat.js'></script>
+    <script src='js/interface.js'></script>
   </body>
 </html>

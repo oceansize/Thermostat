@@ -43,16 +43,18 @@ Thermostat.prototype.switchPowerSaveModeOFF =   function() {
 
 Thermostat.prototype.switchPowerSaveModeON =   function() {
   this.powerSavingMode = true;
+  this.maximumTemperature = this.powerSaveOnLimit;
+  if(this.temperature > this.powerSaveOnLimit) this.temperature = this.powerSaveOnLimit;
 };
 
 Thermostat.prototype.energyRating = function() {
   if(this.temperature < this.energyUsageBreakpoint) {
-    return "low";
+    return "low-usage";
   }
   else if(this.temperature < this.powerSaveOnLimit && this.temperature >= this.energyUsageBreakpoint) {
-    return "medium";
+    return "medium-usage";
   }
   else {
-    return "high";
+    return "high-usage";
   }
 };

@@ -28,7 +28,7 @@ $(document).ready(function() {
   $('.PSM-on').on('click', function(event){
     event.preventDefault();
     thermostat.switchPowerSaveModeON();
-    $(this).addClass();
+    $(this).addClass(thermostat.energyRating());
     updateTemperature();
   })
 

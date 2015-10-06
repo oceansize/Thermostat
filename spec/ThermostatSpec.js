@@ -13,8 +13,8 @@ describe("Thermostat", function() {
     it("starts at 20 degrees", function() {
       expect(thermostat.temperature).toEqual(defaultTemperature);
     });
-    it("must have a minimum temperature", function() {
-      expect(thermostat.minimumTemperature).toEqual(10);
+    it("has a minimum temperature", function() {
+      expect(thermostat.MINIMUM_TEMPERATURE).toEqual(10);
     });
   });
 
@@ -55,6 +55,11 @@ describe("Thermostat", function() {
       thermostat.switchPowerSaveModeON();
       expect(thermostat.powerSavingMode).toBe(true);
     });
+    it("decides maximum temperature when on and off", function() {
+      expect(thermostat.MAXIMUM_TEMPERATURE).toEqual(25);
+      thermostat.switchPowerSaveModeOFF();
+      expect(thermostat.MAXIMUM_TEMPERATURE).toEqual(32);
+    });
 
     describe("when switched on", function() {
       it("if temperature is set above maximum, reduce to limit", function() {
@@ -64,21 +69,16 @@ describe("Thermostat", function() {
         expect(thermostat.temperature).toEqual(25);
       });
       it("if temperature is below limit, remains unchanged", function() {
+        thermostat.switchPowerSaveModeOFF();
         thermostat.switchPowerSaveModeON();
         expect(thermostat.temperature).toEqual(20);
       });
-    });
-
-    it("decides maximum temperature", function() {
-      expect(thermostat.maximumTemperature).toEqual(25);
-      thermostat.switchPowerSaveModeOFF();
-      expect(thermostat.maximumTemperature).toEqual(32);
     });
   });
 
   describe("reflects energy usage with a rating", function() {
     it("less than 18 degrees is considered low usage", function() {
-      thermostat.decreaseTemperature(5);
+      thermostat.decreaseTemperature(3);
       expect(thermostat.energyRating()).toEqual("low-usage")
     });
     it("less than 25 degrees is considered medium usage", function() {

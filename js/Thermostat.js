@@ -2,20 +2,20 @@
 
 var Thermostat = function () {
   this.powerSavingMode = true;
-  this.powerSaveOffLimit = 32;
-  this.powerSaveOnLimit = 25;
-  this.energyUsageBreakpoint = 18;
-  this.defaultTemperature = 20;
-  this.minimumTemperature = 10;
-  this.maximumTemperature = this.powerSaveOnLimit;
-  this.temperature = this.defaultTemperature;
-  this.defaultTemperatureChange = 1;
+  this.POWER_SAVE_OFF_LIMIT = 32;
+  this.POWER_SAVE_ON_LIMIT = 25;
+  this.ENERGY_USAGE_BREAKPOINT = 18;
+  this.DEFAULT_TEMPERATURE = 20;
+  this.MINIMUM_TEMPERATURE = 10;
+  this.MAXIMUM_TEMPERATURE = this.POWER_SAVE_ON_LIMIT;
+  this.temperature = this.DEFAULT_TEMPERATURE;
+  this.DEFAULT_TEMPERATURE_CHANGE = 1;
 };
 
 Thermostat.prototype.increaseTemperature = function(degreesToChangeBy) {
-  degreesToChangeBy = degreesToChangeBy || this.defaultTemperatureChange;
-  if (this.temperature + degreesToChangeBy > this.maximumTemperature) {
-    this.temperature = this.maximumTemperature;
+  degreesToChangeBy = degreesToChangeBy || this.DEFAULT_TEMPERATURE_CHANGE;
+  if (this.temperature + degreesToChangeBy > this.MAXIMUM_TEMPERATURE) {
+    this.temperature = this.MAXIMUM_TEMPERATURE;
   }
   else {
     this.temperature += degreesToChangeBy;
@@ -23,9 +23,9 @@ Thermostat.prototype.increaseTemperature = function(degreesToChangeBy) {
 };
 
 Thermostat.prototype.decreaseTemperature = function(degreesToChangeBy) {
-  degreesToChangeBy = degreesToChangeBy || this.defaultTemperatureChange;
-  if (this.temperature - degreesToChangeBy < this.minimumTemperature) {
-    this.temperature = this.minimumTemperature;
+  degreesToChangeBy = degreesToChangeBy || this.DEFAULT_TEMPERATURE_CHANGE;
+  if (this.temperature - degreesToChangeBy < this.MINIMUM_TEMPERATURE) {
+    this.temperature = this.MINIMUM_TEMPERATURE;
   }
   else {
     this.temperature -= degreesToChangeBy;
@@ -33,25 +33,25 @@ Thermostat.prototype.decreaseTemperature = function(degreesToChangeBy) {
 };
 
 Thermostat.prototype.resetTemperature = function() {
-  this.temperature = this.defaultTemperature;
+  this.temperature = this.DEFAULT_TEMPERATURE;
 };
 
 Thermostat.prototype.switchPowerSaveModeOFF =   function() {
   this.powerSavingMode = false;
-  this.maximumTemperature = this.powerSaveOffLimit;
+  this.MAXIMUM_TEMPERATURE = this.POWER_SAVE_OFF_LIMIT;
 };
 
 Thermostat.prototype.switchPowerSaveModeON =   function() {
   this.powerSavingMode = true;
-  this.maximumTemperature = this.powerSaveOnLimit;
-  if(this.temperature > this.powerSaveOnLimit) this.temperature = this.powerSaveOnLimit;
+  this.MAXIMUM_TEMPERATURE = this.POWER_SAVE_ON_LIMIT;
+  if(this.temperature > this.POWER_SAVE_ON_LIMIT) this.temperature = this.POWER_SAVE_ON_LIMIT;
 };
 
 Thermostat.prototype.energyRating = function() {
-  if(this.temperature < this.energyUsageBreakpoint) {
+  if(this.temperature < this.ENERGY_USAGE_BREAKPOINT) {
     return "low-usage";
   }
-  else if(this.temperature < this.powerSaveOnLimit && this.temperature >= this.energyUsageBreakpoint) {
+  else if(this.temperature < this.POWER_SAVE_ON_LIMIT && this.temperature >= this.ENERGY_USAGE_BREAKPOINT) {
     return "medium-usage";
   }
   else {

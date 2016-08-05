@@ -47,6 +47,10 @@ Thermostat.prototype.switchPowerSaveModeON =   function() {
   if(this.temperature > this.POWER_SAVE_ON_LIMIT) this.temperature = this.POWER_SAVE_ON_LIMIT;
 };
 
+Thermostat.prototype.togglePowerSavingMode = function() {
+  this.powerSavingMode ? this.switchPowerSaveModeOFF() : this.switchPowerSaveModeON();
+};
+
 Thermostat.prototype.energyRating = function() {
   if(this.temperature < this.ENERGY_USAGE_BREAKPOINT) {
     return "low-usage";

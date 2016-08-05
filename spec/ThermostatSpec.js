@@ -55,6 +55,13 @@ describe("Thermostat", function() {
       thermostat.switchPowerSaveModeON();
       expect(thermostat.powerSavingMode).toBe(true);
     });
+    it('can be toggled on and off', function() {
+      expect(thermostat.powerSavingMode).toBe(true);
+      thermostat.togglePowerSavingMode();
+      expect(thermostat.powerSavingMode).toBe(false);
+      thermostat.togglePowerSavingMode();
+      expect(thermostat.powerSavingMode).toBe(true);
+    });
     it("decides maximum temperature when on and off", function() {
       expect(thermostat.MAXIMUM_TEMPERATURE).toEqual(25);
       thermostat.switchPowerSaveModeOFF();
